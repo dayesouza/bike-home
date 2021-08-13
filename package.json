@@ -1,12 +1,13 @@
 {
   "name": "bike-home",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview"
   },
   "dependencies": {
+    "firebase": "^8.9.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "styled-components": "^5.3.0"
