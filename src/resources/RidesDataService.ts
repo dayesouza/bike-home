@@ -1,4 +1,4 @@
-import { Ride } from "../../types";
+import { Ride } from "../types";
 import firebase from "./firebase";
 
 const db = firebase.collection("/Rides");
