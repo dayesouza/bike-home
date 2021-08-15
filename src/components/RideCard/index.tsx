@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo, useMemo } from "react";
 import styled from "styled-components";
 import { Ride } from "../../types";
@@ -21,7 +22,7 @@ export const RideCard: React.FC<RideCard> = memo(function RideCard({ ride }) {
 
   return (
     <Card>
-      <CardDetails>
+      <CardBody>
         <CardInfo>
           <DetailNumber>{ride.distance} Km</DetailNumber>
           <DetailText>Distance</DetailText>
@@ -37,7 +38,14 @@ export const RideCard: React.FC<RideCard> = memo(function RideCard({ ride }) {
           <DetailNumber>{duration}</DetailNumber>
           <DetailText>Duration</DetailText>
         </CardInfo>
-      </CardDetails>
+      </CardBody>
+      <CardFooter>
+        <CardInfoDate>
+          <FontAwesomeIcon icon="clock" />
+          <CardDate>{ride.date.toLocaleDateString()}</CardDate>
+        </CardInfoDate>
+        <CardInfo>More details</CardInfo>
+      </CardFooter>
     </Card>
   );
 });
@@ -47,15 +55,28 @@ const Card = styled.div`
   border-radius: 16px;
   color: black;
   padding: 8px;
+  margin-bottom: 16px;
 `;
 
 const Divider = styled.div`
   border-right: 1px solid #929292;
 `;
 
-const CardDetails = styled.div`
+const CardBody = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+const CardFooter = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+`;
+
+const CardInfoDate = styled.div`
+  padding: 8px;
+`;
+const CardDate = styled.span`
+  margin-left: 4px;
 `;
 
 const DetailNumber = styled.span`
