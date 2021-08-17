@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Ride } from "../../types";
-import RidesDataService from "../../resources/RidesDataService";
+import RidesDataService from "../../services/RidesDataService";
 import { RideCard } from "../RideCard";
 
 export const List: React.FC = () => {
@@ -10,14 +10,13 @@ export const List: React.FC = () => {
   const onDataChange = (items: any) => {
     let rides: Ride[] = [];
     items.forEach((item: any) => {
-      let id = item.id;
       let data = item.data();
-
       rides.push({
-        id: id,
+        id: item.id,
         distance: data.distance,
         time: data.time,
         date: data.date.toDate(),
+        user: data.user,
       });
     });
     setRidesList(rides);

@@ -1,14 +1,19 @@
 import { Ride } from "../types";
-import firebase from "./firebase";
+import { firestore } from "../resources/firebase";
+import { getCurrentUser } from "./UserService";
 
-const db = firebase.collection("/Rides");
+const db = firestore.collection("/rides");
 
 class RidesDataService {
   getAll() {
-    return db;
+    const user = getCurrentUser()?.uid || "";
+    return db.where("user", "==", user);
   }
 
   create(obj: Ride) {
+    if (!obj.user) {
+      obj.user = getCurrentUser()?.uid || "";
+    }
     return db.add(obj);
   }
 

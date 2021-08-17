@@ -3,4 +3,5 @@ export interface Ride {
   distance: number;
   time: number;
   date: Date;
+  user?: string;
 }

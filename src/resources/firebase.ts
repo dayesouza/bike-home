@@ -10,4 +10,8 @@ const config = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 firebase.initializeApp(config);
-export default firebase.firestore();
+firebase.auth().useDeviceLanguage();
+
+var auth = firebase.auth();
+var firestore = firebase.firestore();
+export { firestore, auth, firebase };

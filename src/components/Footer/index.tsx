@@ -31,6 +31,7 @@ export const Footer: React.FC = memo(function Footer() {
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  padding: 8px 0px;
 `;
 
 const Link = styled.a`

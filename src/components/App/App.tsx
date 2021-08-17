@@ -1,31 +1,64 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { AppHeader } from "../AppHeader";
-import { Footer } from "../Footer";
-import { Home } from "../pages/Home/Home";
+import { Home } from "../pages/Home";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { Layout } from "./Layout";
+import { Login } from "../pages/Login";
+import { auth, firebase } from "../../resources/firebase";
+import { createUserProfileInFirebase } from "../../services/UserService";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const App = () => {
+  const [user, setUser] = useState<firebase.User | null>();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userRef = await createUserProfileInFirebase(user);
+        userRef?.onSnapshot(async (snapshot) => {
+          setUser(snapshot.data() as firebase.User);
+          setLoading(false);
+        });
+      } else {
+        setUser(null);
+        setLoading(false);
+      }
+    });
+  }, []);
+
   return (
-    <Container>
+    <Router>
       <GlobalStyle />
-      <Main>
-        <AppHeader></AppHeader>
-        <Home />
-      </Main>
-      <Footer />
-    </Container>
+      {loading ? (
+        <Loading>
+          <FontAwesomeIcon className="fa-spin" icon="circle-notch" />
+        </Loading>
+      ) : user ? (
+        <Route path="/">
+          <Layout>
+            <Home></Home>
+          </Layout>
+        </Route>
+      ) : (
+        <Route path="/">
+          <Layout>
+            <Login></Login>
+          </Layout>
+        </Route>
+      )}
+    </Router>
   );
 };
 
-const Main = styled.main``;
-
-const Container = styled.div`
+const Loading = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 100vh;
-  padding-right: 15px;
-  padding-left: 15px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  font-size: 15vh;
 `;
 
 const GlobalStyle = createGlobalStyle`

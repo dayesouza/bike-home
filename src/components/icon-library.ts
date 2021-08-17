@@ -1,9 +1,14 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 
-import { faGlobe, faPlus, faClock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGlobe,
+  faPlus,
+  faClock,
+  faCircleNotch,
+} from "@fortawesome/free-solid-svg-icons";
 
-library.add(fab, faGlobe, faPlus, faClock);
+library.add(fab, faGlobe, faPlus, faClock, faCircleNotch);
 
 /*
   Use it like that on the desired component:
