@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo, useMemo } from "react";
+import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import { Ride } from "../../types";
 
@@ -21,7 +22,7 @@ export const RideCard: React.FC<RideCard> = memo(function RideCard({ ride }) {
   }, [ride]);
 
   return (
-    <Card>
+    <InfoCard>
       <CardBody>
         <CardInfo>
           <DetailNumber>{ride.distance} Km</DetailNumber>
@@ -46,11 +47,11 @@ export const RideCard: React.FC<RideCard> = memo(function RideCard({ ride }) {
         </CardInfoDate>
         <CardInfo>More details</CardInfo>
       </CardFooter>
-    </Card>
+    </InfoCard>
   );
 });
 
-const Card = styled.div`
+const InfoCard = styled(Card)`
   background-color: white;
   border-radius: 16px;
   color: black;

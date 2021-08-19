@@ -17,6 +17,7 @@ export const List: React.FC = () => {
         time: data.time,
         date: data.date.toDate(),
         user: data.user,
+        period: data.period,
       });
     });
     setRidesList(rides);

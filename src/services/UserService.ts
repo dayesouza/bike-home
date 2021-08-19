@@ -6,6 +6,10 @@ export const getCurrentUser = (): firebase.User | null => {
   return auth.currentUser;
 };
 
+export const logout = () => {
+  return firebase.auth().signOut();
+};
+
 export const createUserProfileInFirebase = async (user: firebase.User) => {
   if (!user) return;
   const userRef = await db.doc(user.uid);

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
-import { Home } from "../pages/Home";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Layout } from "./Layout";
 import { Login } from "../pages/Login";
 import { auth, firebase } from "../../resources/firebase";
 import { createUserProfileInFirebase } from "../../services/UserService";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { routes } from "./routes";
 
 export const App = () => {
   const [user, setUser] = useState<firebase.User | null>();
@@ -30,23 +30,35 @@ export const App = () => {
   return (
     <Router>
       <GlobalStyle />
-      {loading ? (
-        <Loading>
-          <FontAwesomeIcon className="fa-spin" icon="circle-notch" />
-        </Loading>
-      ) : user ? (
-        <Route path="/">
-          <Layout>
-            <Home></Home>
-          </Layout>
-        </Route>
-      ) : (
-        <Route path="/">
-          <Layout>
-            <Login></Login>
-          </Layout>
-        </Route>
-      )}
+      <Switch>
+        {loading ? (
+          <Loading>
+            <FontAwesomeIcon className="fa-spin" icon="circle-notch" />
+          </Loading>
+        ) : user ? (
+          routes.map((route, index) => (
+            <Route
+              key={index}
+              path={route.path}
+              exact
+              component={() => (
+                <Layout>
+                  <route.component />
+                </Layout>
+              )}
+            />
+          ))
+        ) : (
+          <Route
+            path="/"
+            component={() => (
+              <Layout>
+                <Login></Login>
+              </Layout>
+            )}
+          ></Route>
+        )}
+      </Switch>
     </Router>
   );
 };

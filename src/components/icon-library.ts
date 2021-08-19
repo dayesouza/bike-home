@@ -6,9 +6,10 @@ import {
   faPlus,
   faClock,
   faCircleNotch,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(fab, faGlobe, faPlus, faClock, faCircleNotch);
+library.add(fab, faGlobe, faPlus, faClock, faCircleNotch, faUser);
 
 /*
   Use it like that on the desired component:

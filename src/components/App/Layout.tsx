@@ -1,23 +1,26 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 import styled from "styled-components";
 import { AppHeader } from "../AppHeader";
 import { Footer } from "../Footer";
 
 export const Layout: React.FC = ({ children }) => {
   return (
-    <Container>
+    <MinContainer fluid>
       <Main>
         <AppHeader></AppHeader>
         {children}
       </Main>
       <Footer />
-    </Container>
+    </MinContainer>
   );
 };
 
-const Main = styled.main``;
+const Main = styled.main`
+  height: 90%;
+`;
 
-const Container = styled.div`
+const MinContainer = styled(Container)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
