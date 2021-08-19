@@ -1,0 +1,72 @@
+trigger:
+  - main
+
+pool:
+  vmImage: "windows-latest"
+
+stages:
+  - stage: BuildApp
+    displayName: "Build App"
+    jobs:
+      - job: Build
+        continueOnError: false
+        steps:
+          - task: Bash@3
+            displayName: Install packages
+            inputs:
+              targetType: "inline"
+              script: yarn install
+
+          - task: Bash@3
+            displayName: Build packages
+            inputs:
+              targetType: "inline"
+              script: yarn run build
+
+          - task: ArchiveFiles@2
+            displayName: "Archive File"
+            inputs:
+              rootFolderOrFile: "$(System.DefaultWorkingDirectory)/build"
+              includeRootFolder: false
+              archiveType: "zip"
+              archiveFile: "$(Build.ArtifactStagingDirectory)/dist.zip"
+              replaceExistingArchive: true
+
+          - task: PublishBuildArtifacts@1
+            displayName: "Publish Artifact"
+            inputs:
+              PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+              ArtifactName: "dist"
+              publishLocation: "Container"
+
+  - stage: "Repease App"
+    dependsOn: BuildApp
+    displayName: "Release app to blob storage"
+    condition: and(succeeded('BuildApp'),  ne(variables['Build.Reason'], 'PullRequest'))
+
+    jobs:
+      - job: Deploy_Steps
+        steps:
+
+        - task: DownloadBuildArtifacts@0
+        displayName: 'Download Published Artifact'
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: 'dist'
+          downloadPath: '$(System.ArtifactsDirectory)'
+
+        - task: ExtractFiles@1
+          displayName: 'Extract files'
+          inputs:
+            archiveFilePatterns: '$(System.ArtifactsDirectory)/dist/dist.zip'
+            destinationFolder: '$(System.DefaultWorkingDirectory)/dist'
+            cleanDestinationFolder: true
+            overwriteExistingFiles: false
+
+        - task: AzureFileCopy@4
+          inputs:
+            SourcePath: '$(System.DefaultWorkingDirectory)/dist'
+            Destination: 'AzureBlob'
+            storage: 'bikehomedata'
+            ContainerName: '$web'
