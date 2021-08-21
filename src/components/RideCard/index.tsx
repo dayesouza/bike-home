@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { memo, useMemo } from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
-import { Ride } from "../../types";
+import { Ride } from "types";
 
 interface RideCard {
   ride: Ride;

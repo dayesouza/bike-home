@@ -20,7 +20,8 @@
     "react-dom": "^17.0.0",
     "react-router-dom": "^5.2.0",
     "sass": "^1.38.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "vite-tsconfig-paths": "^3.3.13"
   },
   "devDependencies": {
     "@types/react": "^17.0.18",

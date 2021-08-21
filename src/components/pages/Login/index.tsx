@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import firebase from "firebase";
 import React from "react";
-import { Button, Container, Image, Row } from "react-bootstrap";
+import { Button, Container, Image } from "react-bootstrap";
 import styled from "styled-components";
 import logo from "../../../assets/white.png";
 
