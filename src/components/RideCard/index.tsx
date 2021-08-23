@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Period } from "enums";
 import React, { memo, useMemo } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Col } from "react-bootstrap";
 import styled from "styled-components";
 import { Ride } from "types";
 
@@ -21,33 +22,48 @@ export const RideCard: React.FC<RideCard> = memo(function RideCard({ ride }) {
     return (ride.distance / +durationInHours.toFixed(2)).toFixed(2);
   }, [ride]);
 
-  return (
-    <InfoCard>
-      <CardBody>
-        <CardInfo>
-          <DetailNumber>{ride.distance} Km</DetailNumber>
-          <DetailText>Distance</DetailText>
-        </CardInfo>
-        <Divider></Divider>
-        <CardInfo>
-          <DetailNumber>{avgSpeed} Km/h</DetailNumber>
-          <DetailText>Avg Speed</DetailText>
-        </CardInfo>
-        <Divider></Divider>
+  const returnIcon = useMemo(() => {
+    switch (ride.period) {
+      case Period.Morning:
+        return "sun";
+      case Period.Afternoon:
+        return "coffee";
+      case Period.Night:
+        return "moon";
+      default:
+        return "clock";
+    }
+  }, [ride]);
 
-        <CardInfo>
-          <DetailNumber>{duration}</DetailNumber>
-          <DetailText>Duration</DetailText>
-        </CardInfo>
-      </CardBody>
-      <CardFooter>
-        <CardInfoDate>
-          <FontAwesomeIcon icon="clock" />
-          <CardDate>{ride.date.toLocaleDateString()}</CardDate>
-        </CardInfoDate>
-        <CardInfo>More details</CardInfo>
-      </CardFooter>
-    </InfoCard>
+  return (
+    <Col md={3}>
+      <InfoCard>
+        <CardBody>
+          <CardInfo>
+            <DetailNumber>{ride.distance} Km</DetailNumber>
+            <DetailText>Distance</DetailText>
+          </CardInfo>
+          <Divider></Divider>
+          <CardInfo>
+            <DetailNumber>{avgSpeed} Km/h</DetailNumber>
+            <DetailText>Avg Speed</DetailText>
+          </CardInfo>
+          <Divider></Divider>
+
+          <CardInfo>
+            <DetailNumber>{duration}</DetailNumber>
+            <DetailText>Duration</DetailText>
+          </CardInfo>
+        </CardBody>
+        <CardFooter>
+          <CardInfoDate>
+            <FontAwesomeIcon icon={returnIcon} />
+            <CardDate>{ride.date.toLocaleDateString()}</CardDate>
+          </CardInfoDate>
+          <CardInfo>More details</CardInfo>
+        </CardFooter>
+      </InfoCard>
+    </Col>
   );
 });
 

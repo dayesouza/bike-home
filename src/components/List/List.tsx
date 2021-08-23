@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Ride } from "../../types";
 import RidesDataService from "../../services/RidesDataService";
 import { RideCard } from "../RideCard";
+import { Row } from "react-bootstrap";
 
 export const List: React.FC = () => {
   var [ridesList, setRidesList] = useState<Ride[]>([]);
@@ -36,9 +37,11 @@ export const List: React.FC = () => {
 
   return (
     <Container>
-      {ridesList.map((ride: Ride) => (
-        <RideCard key={ride.id} ride={ride}></RideCard>
-      ))}
+      <Row>
+        {ridesList.map((ride: Ride) => (
+          <RideCard key={ride.id} ride={ride}></RideCard>
+        ))}
+      </Row>
     </Container>
   );
 };

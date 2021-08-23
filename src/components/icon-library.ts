@@ -7,9 +7,22 @@ import {
   faClock,
   faCircleNotch,
   faUser,
+  faMoon,
+  faSun,
+  faCoffee,
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(fab, faGlobe, faPlus, faClock, faCircleNotch, faUser);
+library.add(
+  fab,
+  faGlobe,
+  faPlus,
+  faClock,
+  faCircleNotch,
+  faUser,
+  faMoon,
+  faSun,
+  faCoffee
+);
 
 /*
   Use it like that on the desired component:
