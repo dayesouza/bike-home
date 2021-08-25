@@ -58,7 +58,7 @@ export const Add: React.FC = memo(function Add() {
             <Form.Label>Distance (Km)</Form.Label>
             <Form.Control
               onChange={(event) => setDistance(+event.target.value)}
-              type="number"
+              type="telephone"
               placeholder="Enter the distance in km"
               autoComplete="off"
             />
@@ -70,7 +70,7 @@ export const Add: React.FC = memo(function Add() {
               onChange={(event) => setTime(+event.target.value)}
               type="text"
               autoComplete="off"
-              placeholder="Enter the time in minutes (0:25)"
+              placeholder="Enter the time in minutes (25)"
             />
           </Form.Group>
 
